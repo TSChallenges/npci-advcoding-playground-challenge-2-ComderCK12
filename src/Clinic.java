@@ -22,6 +22,12 @@ class Clinic {
         // Add the patient to the queue and print "Patient <name> admitted."
 
         // TODO
+        if (patient != null) {
+            patientQueue.offer(patient);  // Add patient to the queue
+            System.out.println("Patient " + patient.getName() + " admitted.");
+        } else {
+            System.out.println("Invalid patient.");
+        }
     }
     
 
@@ -32,6 +38,26 @@ class Clinic {
         // Once appointment is given to a patient, add that patient to `admittedPatients` set. Also, print "Scheduled <name> on <appointmentDay>"
 
         // TODO
+        int totalCount = 0;
+
+        while (!patientQueue.isEmpty()) {
+            if (totalCount == 0) {
+                System.out.println("Scheduling appointment for Day " + dayCount + "...");
+            }
+
+            Patient patient = patientQueue.poll();
+            if (patient != null) {
+                patient.setAppointmentDay("Day " + dayCount);
+                admittedPatients.add(patient);
+                System.out.println("Scheduled " + patient.getName() + " on " + patient.getAppointmentDay());
+                totalCount++;
+
+                if (totalCount == 3) {
+                    dayCount++;
+                    totalCount = 0;
+                }
+            }
+        }
     }
 
 
@@ -41,6 +67,12 @@ class Clinic {
         // Else print "Patient not found in the admitted list."
         
         // TODO
+        if (admittedPatients.contains(patient)) {
+            patient.setTreatment(treatment);
+            System.out.println("Treatment provided to " + patient.getName() + ": " + treatment);
+        } else {
+            System.out.println("Patient not found in the admitted list.");
+        }
     }
 
 
@@ -50,6 +82,12 @@ class Clinic {
         // Else print "Patient not found in the admitted list."
         
         // TODO
+        if (admittedPatients.contains(patient)) {
+            System.out.println("Patient Details: " + patient);
+        } else {
+            System.out.println("Patient not found in the admitted list.");
+        }
+
     }
 
 
@@ -59,6 +97,11 @@ class Clinic {
         // Else print "Patient not found in the admitted list."
         
         // TODO
+        if (admittedPatients.contains(patient)) {
+            System.out.println("Appointment Details: " + patient.getName() + " is scheduled on " + patient.getAppointmentDay());
+        } else {
+            System.out.println("Patient not found in the admitted list.");
+        }
     }
 
 
@@ -67,5 +110,10 @@ class Clinic {
         // Remove the patient from admitted patients list. Print "Patient <name> discharged."
 
         // TODO
+        if (admittedPatients.remove(patient)) {
+            System.out.println("Patient " + patient.getName() + " discharged.");
+        } else {
+            System.out.println("Patient not found in the admitted list.");
+        }
     }
 }
